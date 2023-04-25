@@ -1,4 +1,7 @@
-#Question source - https://www.youtube.com/watch?v=qyAgWL066Vo&list=PLBTZqjSKn0IeKBQDjLmzisazhqQy4iGkb&index=1
+/*
+Question source - https://www.youtube.com/watch?v=qyAgWL066Vo&list=PLBTZqjSKn0IeKBQDjLmzisazhqQy4iGkb&index=1
+Find matches won, lost, no of matches played for each team
+*/
 
 create table icc_world_cup
 (
