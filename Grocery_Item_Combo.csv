@@ -1,0 +1,21 @@
+ID,Item_Number_1,Item_Number_2,Item_Number_3,Item_Number_4,Item_Number_5,Item_Number_6,Item_Number_7,Item_Number_8
+1,eggs,bread,milk,sugar,flour,apples,chicken,toothpaste
+2,bread,milk,oranges,coffee,,,,
+3,milk,eggs,apples,sugar,toothpaste,chicken,bread,flour
+4,yogurt,bagels,eggs,apples,,,,
+5,tomatoes,olive oil,eggs,,,,,
+6,oranges,bread,coffee,milk,,,,
+7,bagels,yogurt,eggs,apples,coffee,,,
+8,eggs,apples,coffee,bagels,yogurt,,,
+9,cereal,milk,eggs,coffee,,,,
+10,coffee,milk,,,,,,
+11,chicken,bagels,apples,yogurt,,,,
+12,milk,,,,,,,
+13,eggs,olive oil ,tomatoes,potatoes,,,,
+14,apples,oranges,bread,,,,,
+15,bread,coffee,oranges,milk,,,,
+16,olive oil,eggs,tomatoes,,,,,
+17,coffee,milk,eggs,cereal,,,,
+18,sugar,bread,eggs,chicken,toothpaste,flour,apples,flour
+19,milk,coffee,,,,,,
+20,milk,,,,,,,
