@@ -22,15 +22,14 @@ create table CC_Spending(
     );
     
    /* 1. write a query to print top 5 cities with highest spends and their percentage contribution of total credit card spends */
-   with City_Spend as(
+with City_Spend as(
     select City, sum(Amount) as Total_Amount, dense_rank() over (order by sum(Amount) desc) as City_Rank
 	from CC_Spending
 	group by City
     )
 
-select City, Total_Amount, City_Rank
+select City, Total_Amount, City_Rank, Total_Amount / (select sum(Amount) from CC_Spending) * 100 as Percentage_Contribution
 from City_Spend
 where City_Rank <=5;
-
 
     
