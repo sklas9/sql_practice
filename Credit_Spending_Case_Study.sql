@@ -32,4 +32,14 @@ select City, Total_Amount, City_Rank, Total_Amount / (select sum(Amount) from CC
 from City_Spend
 where City_Rank <=5;
 
-    
+/* 2. write a query to print highest spend month and amount spent in that month for each card type */
+with monthly_spending as(
+    select extract(month from Date) as month,sum(Amount) as Amount, dense_rank()over( order by sum(Amount) desc) as month_rank
+    from CC_Spending
+    group by extract(month from Date)
+    )
+select ms.month, ms.month_rank, ccs.Card_Type, sum(ccs.Amount)
+from monthly_spending ms 
+join CC_Spending ccs on ms.month = extract(month from ccs.Date)
+group by ms.month, ms.month_rank, ccs.Card_Type
+order by ms.month_rank asc;    
