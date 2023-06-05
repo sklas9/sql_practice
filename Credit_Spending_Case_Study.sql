@@ -1,6 +1,6 @@
 /*
 Data source - https://www.kaggle.com/datasets/thedevastator/analyzing-credit-card-spending-habits-in-india?resource=download
-
+1. write a query to print top 5 cities with highest spends and their percentage contribution of total credit card spends
 2. write a query to print highest spend month and amount spent in that month for each card type
 3. write a query to print the transaction details(all columns from the table) for each card type when
 it reaches a cumulative of 1000000 total spends(We should have 4 rows in the o/p one for each card type)
@@ -58,3 +58,40 @@ running_Rank as(
     )
 select * from running_Rank
 where total_rank = 1
+
+
+ /* 4. write a query to find city which had lowest percentage spend for gold card type */
+ with gold_Spending as(
+select City, sum(Amount) as gold_Amount
+from CC_Spending
+where Card_Type = 'Gold'
+group by City
+    ) 
+
+select cs.City, gold_Amount / sum(Amount) * 100 as gold_Percentage_Contribution
+from CC_Spending cs join gold_Spending gs
+on cs.City = gs.City
+group by cs.City
+order by gold_Percentage_Contribution asc
+limit 1
+
+/*5. write a query to print 3 columns: city, highest_expense_type , lowest_expense_type (example format : Delhi , bills, Fuel) */
+
+with city_expenses as(
+    select City, Exp_Type, sum(Amount) over(partition by City order by Exp_Type) as city_exp_amount
+    from CC_Spending
+    ),
+expenses_ranking as(
+    select City, Exp_Type, dense_rank() over(partition by City order by city_exp_amount asc) as lowest_expense_amount,
+    dense_rank() over(partition by City order by city_exp_amount desc) as highest_expense_amount
+    from city_expenses
+    )
+select City, 
+max(case when lowest_expense_amount = 1 then Exp_Type end) as lowest_expense_type,
+max(case when highest_expense_amount = 1 then Exp_Type end) as highest_expense_type 
+from expenses_ranking
+group by City
+
+
+    
+   	
