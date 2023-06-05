@@ -43,3 +43,18 @@ from monthly_spending ms
 join CC_Spending ccs on ms.month = extract(month from ccs.Date)
 group by ms.month, ms.month_rank, ccs.Card_Type
 order by ms.month_rank asc;    
+
+
+/* 3. write a query to print the transaction details(all columns from the table) for each card type when
+it reaches a cumulative of 1000000 total spends(We should have 4 rows in the o/p one for each card type) */
+with running_Card as(
+    select *, sum(Amount) over(partition by Card_Type order by Date, City, Exp_Type, Gender, Amount) as running_total
+	from CC_Spending
+),
+running_Rank as(
+    select *, dense_rank() over(partition by Card_Type order by running_total) as total_rank
+	from running_Card
+	where running_total >= 1000000
+    )
+select * from running_Rank
+where total_rank = 1
